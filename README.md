@@ -76,7 +76,7 @@ u "TEXT"              ツイートします
 re ID "TEXT"          リプライします("@TARGET "はTEXTの前に自動的に挿入されます)
 del ID                ツイートを削除します
 rt ID                 ID のツイートをリツイートします
-setup                 oauth_consumer.json と access_token.json を作ります
+setup                 oauth_consumer.json と access_token.json を新しく作ります(ファイルは上書きされます)
 ```
 
 ocamltterとほとんど同じです。

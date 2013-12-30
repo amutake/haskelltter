@@ -104,4 +104,4 @@ setup = do
   createDirectoryIfMissing True dir
   saveOAuthToJsonFile (dir ++ "/oauth_consumer.json") oa
   saveAccessTokenToJsonFile (dir ++ "/access_token.json") tok
-  putStrLn "Done. Please reload Haskelltter module."
+  putStrLn "Done. Please reload GHCi."
