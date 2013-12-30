@@ -1,0 +1,6 @@
+[submodule "lib/twitter-types"]
+	path = lib/twitter-types
+	url = git://github.com/amutake/twitter-types.git
+[submodule "lib/twitter-conduit"]
+	path = lib/twitter-conduit
+	url = git://github.com/amutake/twitter-conduit.git
