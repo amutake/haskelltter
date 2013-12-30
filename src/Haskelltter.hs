@@ -7,8 +7,10 @@ module Haskelltter
     , re
     , del
     , rt
+    , setup
     ) where
 
+import qualified Data.ByteString as BS
 import Data.Monoid
 import Data.Int
 import qualified Data.Text as T
@@ -82,3 +84,21 @@ rt :: Int64 -> IO ()
 rt sid = do
   s <- run $ retweet sid Nothing
   printStatus s
+
+setup :: IO ()
+setup = do
+  putStr "Input consumer key: "
+  key <- BS.getLine
+  putStr "Input consumer secret: "
+  secret <- BS.getLine
+  let oa = newOAuth key secret
+
+  tok <- authorizeIO oa $ \url -> do
+    putStr "Authorize URL: "
+    putStrLn url
+    putStr "Input PIN: "
+    fmap read getLine
+  dir <- getHomeDirectory
+  saveOAuthToJsonFile (dir ++ "/.haskelltter/oauth_consumer.json") oa
+  saveAccessTokenToJsonFile (dir ++ "/.haskelltter/access_token.json") tok
+  putStrLn "Done. Please reload module."

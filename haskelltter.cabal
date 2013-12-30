@@ -22,6 +22,7 @@ library
   -- other-extensions:
   build-depends:       base ==4.*
                      , directory
+                     , bytestring
                      , text
                      , twitter-conduit
   hs-source-dirs:      src
