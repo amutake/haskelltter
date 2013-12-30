@@ -6,29 +6,7 @@ haskelltter
 使い方
 ------
 
-### 1. 設定ファイル
-
-`$HOME/.haskelltter` というディレクトリを作り、その中に以下の形式の `oauth_consumer.json` というファイルと `access_token.json` というファイルを作ります。
-
-oauth_consumer.json
-
-```js
-{
-    "consumer_key": "ここにconsumer key",
-    "consumer_secret": "ここにconsumer secret"
-}
-```
-
-access_token.json
-
-```js
-{
-    "oauth_token": "ここにaccess_token",
-    "oauth_token_secret": "ここにaccess_token_secret"
-}
-```
-
-### 2. インストール
+### インストール
 
 `install.sh` を実行するとインストールできます。
 
@@ -52,7 +30,29 @@ $ cabal configure
 $ cabal build
 ```
 
-### 3. ghci でモジュールをインポート
+### 設定ファイル
+
+`$HOME/.haskelltter` というディレクトリを作り、その中に以下の形式の `oauth_consumer.json` というファイルと `access_token.json` というファイルを作ります。
+
+oauth_consumer.json
+
+```js
+{
+    "consumer_key": "ここにconsumer key",
+    "consumer_secret": "ここにconsumer secret"
+}
+```
+
+access_token.json
+
+```js
+{
+    "oauth_token": "ここにaccess_token",
+    "oauth_token_secret": "ここにaccess_token_secret"
+}
+```
+
+### ghci でモジュールをインポート
 
 ```sh
 $ ghci
@@ -65,7 +65,7 @@ cabal sandbox を使った方は、
 $ cabal repl
 ```
 
-### 4. コマンド
+### コマンド
 
 ```
 - l                     タイムラインを取得します
