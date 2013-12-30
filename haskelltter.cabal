@@ -24,6 +24,8 @@ library
                      , directory
                      , bytestring
                      , text
+                     , transformers
+                     , conduit
                      , twitter-conduit
   hs-source-dirs:      src
   ghc-options:         -Wall

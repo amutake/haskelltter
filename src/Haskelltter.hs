@@ -7,10 +7,13 @@ module Haskelltter
     , re
     , del
     , rt
+    , us
     , setup
     ) where
 
+import Control.Monad.IO.Class (liftIO)
 import qualified Data.ByteString as BS
+import Data.Conduit
 import Data.Monoid
 import Data.Int
 import qualified Data.Text as T
@@ -41,7 +44,27 @@ printStatus status = do
   T.putStr $ "(" <> statusCreatedAt status <> ") "
   T.putStr $ (userScreenName $ statusUser status) <> ": "
   T.putStr $ statusText status <> " "
-  print $  statusId status
+  print $ statusId status
+
+printEvent :: Event -> IO ()
+printEvent event = do
+  T.putStr $ "(" <> eventCreatedAt event <> ") "
+  T.putStr $ "Event: " <> T.pack (show $ eventType event) <> " "
+  T.putStrLn $ "@" <> (userScreenName $ eventSource event) <> " -> " <>
+               "@" <> (userScreenName $ eventTarget event)
+
+printStatusDeletion :: StatusDeletion -> IO ()
+printStatusDeletion sd = do
+  T.putStr "Status deletion: "
+  putStrLn $ show $ statusDeletionId sd
+
+printDM :: DirectMessage -> IO ()
+printDM dm = do
+  T.putStr $ "(" <> directMessageCreatedAt dm <> ") "
+  T.putStr "Direct message from "
+  T.putStr $ directMessageSenderScreenName dm <> ": "
+  T.putStr $ directMessageText dm
+  print $ directMessageId dm
 
 l :: IO ()
 l = do
@@ -87,6 +110,18 @@ rt :: Int64 -> IO ()
 rt sid = do
   s <- run $ retweet sid Nothing
   printStatus s
+
+us :: IO ()
+us = run $ do
+  src <- user
+  src $$+- sink
+  where
+    sink = awaitForever $ \s -> liftIO $ case s of
+      StreamStatus st -> printStatus st
+      StreamEvent ev -> printEvent ev
+      StreamStatusDeletion sd -> printStatusDeletion sd
+      StreamDirectMessage dm -> printDM dm
+      _ -> return ()
 
 setup :: IO ()
 setup = do
