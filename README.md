@@ -68,14 +68,14 @@ $ cabal repl
 ### 4. コマンド
 
 ```
-- l                     list timeline
-- lc COUNT              list timeline (COUNT lines)
-- lu "NAME"             list NAME's timeline
-- m                     list mentions (tweet containing @YOU)
-- u "TEXT"              post a new message
-- re ID "TEXT"          reply to ID (it automatically insert "@TARGET " before TEXT)
-- del ID                delete tweet of ID
-- rt ID                 retweet ID
+- l                     タイムラインを取得します
+- lc COUNT              タイムラインを COUNT の数だけ取得します
+- lu "NAME"             @NAME さんのタイムラインを取得します
+- m                     メンションを取得します
+- u "TEXT"              ツイートします
+- re ID "TEXT"          リプライします("@TARGET "はTEXTの前に自動的に挿入されます)
+- del ID                ツイートを削除します
+- rt ID                 ID のツイートをリツイートします
 ```
 
 ocamltterとほとんど同じです。
