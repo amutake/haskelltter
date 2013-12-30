@@ -6,7 +6,9 @@ haskelltter
 使い方
 ------
 
-1. `$HOME/.haskelltter` というディレクトリを作り、その中に以下の形式の `oauth_consumer.json` というファイルと `access_token.json` というファイルを作ります。
+### 1. 設定ファイル
+
+`$HOME/.haskelltter` というディレクトリを作り、その中に以下の形式の `oauth_consumer.json` というファイルと `access_token.json` というファイルを作ります。
 
 oauth_consumer.json
 
@@ -26,7 +28,9 @@ access_token.json
 }
 ```
 
-2. インストールします。
+### 2. インストール
+
+`install.sh` を実行するとインストールできます。
 
 ```sh
 $ git clone git://github.com/amutake/haskelltter.git
@@ -34,11 +38,13 @@ $ cd haskelltter
 $ ./install.sh
 ```
 
-環境を汚されたくない方は、
+環境を汚されたくない方は `cabal sandbox` を使ってください。
 
 ```sh
 $ git clone git://github.com/amutake/haskelltter.git
 $ cd haskelltter
+$ git submodule init
+$ git submodule update
 $ cabal sandbox init
 $ cabal sandbox add-source lib/twitter-types lib/twitter-conduit
 $ cabal install --only-dependencies
@@ -46,7 +52,7 @@ $ cabal configure
 $ cabal build
 ```
 
-3. ghci でモジュールをインポートします。
+### 3. ghci でモジュールをインポート
 
 ```sh
 $ ghci
@@ -59,7 +65,7 @@ cabal sandbox を使った方は、
 $ cabal repl
 ```
 
-4. コマンドを実行します。
+### 4. コマンド
 
 ```
 - l                     list timeline
@@ -67,7 +73,7 @@ $ cabal repl
 - lu "NAME"             list NAME's timeline
 - m                     list mentions (tweet containing @YOU)
 - u "TEXT"              post a new message
-- re ID "TEXT"          reply to ID
+- re ID "TEXT"          reply to ID (it automatically insert "@TARGET " before TEXT)
 - del ID                delete tweet of ID
 - rt ID                 retweet ID
 ```
