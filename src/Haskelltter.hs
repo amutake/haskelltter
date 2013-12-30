@@ -20,15 +20,18 @@ import System.IO.Unsafe
 
 import Web.Twitter
 
+getHaskelltterDir :: IO FilePath
+getHaskelltterDir = fmap (++ "/.haskelltter") getHomeDirectory
+
 oauth :: OAuth
 oauth = unsafePerformIO $ do
-  dir <- getHomeDirectory
-  readOAuthFromJsonFile $ dir ++ "/.haskelltter/oauth_consumer.json"
+  dir <- getHaskelltterDir
+  readOAuthFromJsonFile $ dir ++ "/oauth_consumer.json"
 
 token :: AccessToken
 token = unsafePerformIO $ do
-  dir <- getHomeDirectory
-  readAccessTokenFromJsonFile $ dir ++ "/.haskelltter/access_token.json"
+  dir <- getHaskelltterDir
+  readAccessTokenFromJsonFile $ dir ++ "/access_token.json"
 
 run :: Twitter a -> IO a
 run = runTwitter oauth token
@@ -92,13 +95,13 @@ setup = do
   putStr "Input consumer secret: "
   secret <- BS.getLine
   let oa = newOAuth key secret
-
   tok <- authorizeIO oa $ \url -> do
     putStr "Authorize URL: "
     putStrLn url
     putStr "Input PIN: "
     fmap read getLine
-  dir <- getHomeDirectory
-  saveOAuthToJsonFile (dir ++ "/.haskelltter/oauth_consumer.json") oa
-  saveAccessTokenToJsonFile (dir ++ "/.haskelltter/access_token.json") tok
-  putStrLn "Done. Please reload module."
+  dir <- getHaskelltterDir
+  createDirectoryIfMissing True dir
+  saveOAuthToJsonFile (dir ++ "/oauth_consumer.json") oa
+  saveAccessTokenToJsonFile (dir ++ "/access_token.json") tok
+  putStrLn "Done. Please reload Haskelltter module."
