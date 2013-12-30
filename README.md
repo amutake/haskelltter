@@ -38,7 +38,7 @@ $ cd haskelltter
 $ ./install.sh
 ```
 
-環境を汚されたくない方は `cabal sandbox` を使ってください。
+環境を汚されたくない方は hsenv を使うか、以下のように `cabal sandbox` を使ってください。
 
 ```sh
 $ git clone git://github.com/amutake/haskelltter.git
