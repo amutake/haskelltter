@@ -56,7 +56,7 @@ access_token.json
 
 ```sh
 $ ghci
-$ :m Haskelltter
+ghci> :m Haskelltter
 ```
 
 cabal sandbox を使った方は、
@@ -68,14 +68,14 @@ $ cabal repl
 ### コマンド
 
 ```
-- l                     タイムラインを取得します
-- lc COUNT              タイムラインを COUNT の数だけ取得します
-- lu "NAME"             @NAME さんのタイムラインを取得します
-- m                     メンションを取得します
-- u "TEXT"              ツイートします
-- re ID "TEXT"          リプライします("@TARGET "はTEXTの前に自動的に挿入されます)
-- del ID                ツイートを削除します
-- rt ID                 ID のツイートをリツイートします
+l                     タイムラインを取得します
+lc COUNT              タイムラインを COUNT の数だけ取得します
+lu "NAME"             @NAME さんのタイムラインを取得します
+m                     メンションを取得します
+u "TEXT"              ツイートします
+re ID "TEXT"          リプライします("@TARGET "はTEXTの前に自動的に挿入されます)
+del ID                ツイートを削除します
+rt ID                 ID のツイートをリツイートします
 ```
 
 ocamltterとほとんど同じです。
