@@ -13,15 +13,20 @@ import Data.Monoid
 import Data.Int
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
+import System.Directory
 import System.IO.Unsafe
 
 import Web.Twitter
 
 oauth :: OAuth
-oauth = unsafePerformIO $ readOAuthFromJsonFile "oauth_consumer.json"
+oauth = unsafePerformIO $ do
+  dir <- getHomeDirectory
+  readOAuthFromJsonFile $ dir ++ "/.haskelltter/oauth_consumer.json"
 
 token :: AccessToken
-token = unsafePerformIO $ readAccessTokenFromJsonFile "access_token.json"
+token = unsafePerformIO $ do
+  dir <- getHomeDirectory
+  readAccessTokenFromJsonFile $ dir ++ "/.haskelltter/access_token.json"
 
 run :: Twitter a -> IO a
 run = runTwitter oauth token
