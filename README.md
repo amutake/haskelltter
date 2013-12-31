@@ -32,7 +32,7 @@ $ cabal configure
 $ cabal build
 ```
 
-### モジュールのロードと設定ファイルの作成
+### モジュールのロードと認証
 
 GHCi を起動してモジュールをロードします。
 
@@ -47,7 +47,7 @@ cabal sandbox を使った方は `cabal repl` を実行してください。
 $ cabal repl
 ```
 
-初回のみ、`setup` コマンドを実行して設定ファイルを作ります。
+初回のみ、`setup` コマンドを実行して認証します。
 
 ```
 Haskelltter> setup
@@ -57,7 +57,7 @@ Authorize URL: https://api.twitter.com/oauth/authorize?...
 Input PIN: (上のURLにWebブラウザでアクセスして認証してください。認証後に表示されるPINを入力してください)
 ```
 
-`$HOME/.haskelltter` というディレクトリが作られ、そのなかに設定ファイルが作られます。`setup` コマンドを実行したあとは GHCi を再起動してください。
+`$HOME/.haskelltter` というディレクトリが作られ、そのなかに認証情報のファイルが作られます。`setup` コマンドを実行したあとは GHCi を再起動してください。
 
 ```
 Done. Please reload GHCi.
@@ -79,7 +79,7 @@ re ID "TEXT"          リプライします("@TARGET "はTEXTの前に自動的�
 del ID                ツイートを削除します
 rt ID                 ID のツイートをリツイートします
 us                    ユーザーストリームです(終了はCtrl-C)
-setup                 設定ファイルを新しく作ります(ファイルは上書きされます)
+setup                 新しく認証します(認証情報のファイルは上書きされます)
 ```
 
 ocamltterとほとんど同じです。
