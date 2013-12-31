@@ -30,39 +30,39 @@ $ cabal configure
 $ cabal build
 ```
 
-### 設定ファイル
+### モジュールのロードと設定ファイルの作成
 
-`$HOME/.haskelltter` というディレクトリを作り、その中に以下の形式の `oauth_consumer.json` というファイルと `access_token.json` というファイルを作ります。
-
-oauth_consumer.json
-
-```js
-{
-    "consumer_key": "ここにconsumer key",
-    "consumer_secret": "ここにconsumer secret"
-}
-```
-
-access_token.json
-
-```js
-{
-    "oauth_token": "ここにaccess_token",
-    "oauth_token_secret": "ここにaccess_token_secret"
-}
-```
-
-### ghci でモジュールをインポート
+GHCi を起動してモジュールをロードします。
 
 ```sh
 $ ghci
-ghci> :m Haskelltter
+Prelude> :m Haskelltter
 ```
 
-cabal sandbox を使った方は、
+cabal sandbox を使った方は `cabal repl` を実行してください。
 
 ```sh
 $ cabal repl
+```
+
+初回のみ、`setup` コマンドを実行して設定ファイルを作ります。
+
+```
+Haskelltter> setup
+Input consumer key: (コンシューマーキーを入力してください)
+Input consumer secret: (コンシューマーシークレットを入力してください)
+Authorize URL: https://api.twitter.com/oauth/authorize?...
+Input PIN: (上のURLにWebブラウザでアクセスして認証してください。認証後に表示されるPINを入力してください)
+```
+
+`$HOME/.haskelltter` というディレクトリが作られ、そのなかに設定ファイルが作られます。`setup` コマンドを実行したあとは GHCi を再起動してください。
+
+```
+Done. Please reload GHCi.
+Haskelltter> :q
+Leaving GHCi.
+$ ghci
+Prelude> :m Haskelltter
 ```
 
 ### コマンド
@@ -70,14 +70,14 @@ $ cabal repl
 ```
 l                     タイムラインを取得します
 lc COUNT              タイムラインを COUNT の数だけ取得します
-lu "NAME"             @NAME さんのタイムラインを取得します
+lu "NAME"             @NAME さんのツイートを取得します
 m                     メンションを取得します
 u "TEXT"              ツイートします
 re ID "TEXT"          リプライします("@TARGET "はTEXTの前に自動的に挿入されます)
 del ID                ツイートを削除します
 rt ID                 ID のツイートをリツイートします
 us                    ユーザーストリームです(終了はCtrl-C)
-setup                 oauth_consumer.json と access_token.json を新しく作ります(ファイルは上書きされます)
+setup                 設定ファイルを新しく作ります(ファイルは上書きされます)
 ```
 
 ocamltterとほとんど同じです。
