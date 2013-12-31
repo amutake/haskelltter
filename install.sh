@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cabal update
 git submodule init
 git submodule update
 cd lib/twitter-types

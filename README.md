@@ -1,6 +1,8 @@
 haskelltter
 ===========
 
+[![Build Status](https://drone.io/github.com/amutake/haskelltter/status.png)](https://drone.io/github.com/amutake/haskelltter/latest)
+
 [ocamltter](https://github.com/yoshihiro503/ocamltter)のパクリ
 
 使い方
