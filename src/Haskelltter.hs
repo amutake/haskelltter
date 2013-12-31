@@ -23,6 +23,9 @@ import System.IO.Unsafe
 
 import Web.Twitter
 
+n :: Maybe a
+n = Nothing
+
 getHaskelltterDir :: IO FilePath
 getHaskelltterDir = fmap (++ "/.haskelltter") getHomeDirectory
 
@@ -68,47 +71,45 @@ printDM dm = do
 
 l :: IO ()
 l = do
-  tl <- run $ homeTimeline Nothing Nothing Nothing Nothing Nothing Nothing Nothing
+  tl <- run $ homeTimeline n n n n n n n
   mapM_ printStatus tl
 
 lc :: Int -> IO ()
-lc n = do
-  tl <- run $ homeTimeline (Just n) Nothing Nothing Nothing Nothing Nothing Nothing
+lc count = do
+  tl <- run $ homeTimeline (Just count) n n n n n n
   mapM_ printStatus tl
 
 lu :: String -> IO ()
 lu name = do
-  tl <- run $ userTimeline Nothing (Just $ T.pack name)
-        Nothing Nothing Nothing Nothing Nothing Nothing Nothing
+  tl <- run $ userTimeline n (Just $ T.pack name) n n n n n n n
   mapM_ printStatus tl
 
 m :: IO ()
 m = do
-  ms <- run $ mentionsTimeline Nothing Nothing Nothing Nothing Nothing Nothing
+  ms <- run $ mentionsTimeline n n n n n n
   mapM_ printStatus ms
 
 u :: String -> IO ()
 u text = do
-  st <- run $ update (T.pack text)
-        Nothing Nothing Nothing Nothing Nothing Nothing
+  st <- run $ update (T.pack text) n n n n n n
   printStatus st
 
 re :: Int64 -> String -> IO ()
 re sid text = do
   s <- run $ do
-    target <- showStatus sid Nothing Nothing Nothing
+    target <- showStatus sid n n n
     let t = "@" <> userScreenName (statusUser target) <> " " <> T.pack text
-    update t (Just $ statusId target) Nothing Nothing Nothing Nothing Nothing
+    update t (Just $ statusId target) n n n n n
   printStatus s
 
 del :: Int64 -> IO ()
 del sid = do
-  s <- run $ destroy sid Nothing
+  s <- run $ destroy sid n
   printStatus s
 
 rt :: Int64 -> IO ()
 rt sid = do
-  s <- run $ retweet sid Nothing
+  s <- run $ retweet sid n
   printStatus s
 
 us :: IO ()
