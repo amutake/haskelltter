@@ -8,6 +8,7 @@ module Haskelltter
     , del
     , rt
     , us
+    , allfav
     , setup
     ) where
 
@@ -125,6 +126,21 @@ us = do
       StreamEvent ev -> printEvent ev
       StreamStatusDeletion sd -> printStatusDeletion sd
       StreamDirectMessage dm -> printDM dm
+      _ -> return ()
+
+allfav :: IO ()
+allfav = do
+  putStrLn "star all tweets (to stop, Ctrl-C)"
+  putStrLn ""
+  run $ do
+    src <- user
+    src $$+- sink
+  where
+    sink = awaitForever $ \s -> liftIO $ case s of
+      StreamStatus st -> do
+        printStatus st
+        run (createFavorite (statusId st) n)
+        return ()
       _ -> return ()
 
 setup :: IO ()
