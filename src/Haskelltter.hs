@@ -12,7 +12,6 @@ module Haskelltter
     ) where
 
 import Control.Monad.IO.Class (liftIO)
-import qualified Data.ByteString as BS
 import Data.Conduit
 import Data.Monoid
 import Data.Int
@@ -44,14 +43,15 @@ run = runTwitter oauth token
 
 printStatus :: Status -> IO ()
 printStatus status = do
-  T.putStr $ "(" <> statusCreatedAt status <> ") "
-  T.putStr $ (userScreenName $ statusUser status) <> ": "
-  T.putStr $ statusText status <> " "
-  print $ statusId status
+  putStr $ show (statusId status) ++ " "
+  putStr $ "(" <> show (statusCreatedAt status) <> ") "
+  T.putStrLn $ (userScreenName $ statusUser status) <> ": "
+  T.putStrLn $ statusText status
+  putStrLn ""
 
 printEvent :: Event -> IO ()
 printEvent event = do
-  T.putStr $ "(" <> eventCreatedAt event <> ") "
+  putStr $ "(" <> show (eventCreatedAt event) <> ") "
   T.putStr $ "Event: " <> T.pack (show $ eventType event) <> " "
   T.putStrLn $ "@" <> (userScreenName $ eventSource event) <> " -> " <>
                "@" <> (userScreenName $ eventTarget event)
@@ -63,7 +63,7 @@ printStatusDeletion sd = do
 
 printDM :: DirectMessage -> IO ()
 printDM dm = do
-  T.putStr $ "(" <> directMessageCreatedAt dm <> ") "
+  putStr $ "(" <> show (directMessageCreatedAt dm) <> ") "
   T.putStr "Direct message from "
   T.putStr $ directMessageSenderScreenName dm <> ": "
   T.putStr $ directMessageText dm
@@ -113,9 +113,12 @@ rt sid = do
   printStatus s
 
 us :: IO ()
-us = run $ do
-  src <- user
-  src $$+- sink
+us = do
+  putStrLn "user stream (to stop, Ctrl-C)"
+  putStrLn ""
+  run $ do
+    src <- user
+    src $$+- sink
   where
     sink = awaitForever $ \s -> liftIO $ case s of
       StreamStatus st -> printStatus st
@@ -127,9 +130,9 @@ us = run $ do
 setup :: IO ()
 setup = do
   putStr "Input consumer key: "
-  key <- BS.getLine
+  key <- getLine
   putStr "Input consumer secret: "
-  secret <- BS.getLine
+  secret <- getLine
   let oa = newOAuth key secret
   tok <- authorizeIO oa $ \url -> do
     putStr "Authorize URL: "
