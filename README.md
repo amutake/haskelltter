@@ -1,7 +1,7 @@
 haskelltter
 ===========
 
-[![Build Status](https://drone.io/github.com/amutake/haskelltter/status.png)](https://drone.io/github.com/amutake/haskelltter/latest)
+[![wercker status](https://app.wercker.com/status/fe6788dfe2d1125c2b995cc57cba90ea/m "wercker status")](https://app.wercker.com/project/bykey/fe6788dfe2d1125c2b995cc57cba90ea)
 
 [ocamltter](https://github.com/yoshihiro503/ocamltter)のパクリ
 
